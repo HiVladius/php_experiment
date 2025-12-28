@@ -1,0 +1,74 @@
+/* ================================
+   Estilos principales de la aplicación
+   ================================ */
+
+:root {
+    --color-online: #22c55e;
+    --color-offline: #ef4444;
+    --color-away: #eab308;
+    --color-getOut: #6b7280;
+    --color-bg-online: #22c55e80;
+    --color-bg-offline: #ef444480;
+    --color-bg-away: #eab30880;
+    --color-bg-getOut: #6b728080;
+    
+}
+    
+/* Status Dot - Indicador de estado */
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.status-dot.online {
+    background-color: var(--color-online);
+    box-shadow: 0 0 8px var(--color-bg-online);
+}
+
+.status-dot.offline {
+    background-color: var(--color-offline);
+    box-shadow: 0 0 8px var(--color-bg-offline)
+}
+
+.status-dot.away {
+    background-color: var(--color-away);
+    box-shadow: 0 0 8px var(--color-bg-away)
+}
+
+.status-dot.getOut {
+    background-color: var(--color-getOut);
+    box-shadow: 0 0 8px rgba(107, 114, 128, 0.5);
+}
+
+/* Animación suave para transiciones */
+* {
+    transition: background-color 0.2s ease;
+}
+
+/* Override para controles de formulario */
+select, input {
+    transition: none;
+}
+
+/* Estilos adicionales personalizados */
+.container-main {
+    max-width: 896px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.card-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
