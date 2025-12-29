@@ -1,2 +1,5 @@
 .env
 vendor/*
+create_user.sql
+insert_data.sql
+test_db.php
