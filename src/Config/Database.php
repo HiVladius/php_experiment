@@ -20,7 +20,7 @@ class Database {
             return $this->connection;
         }
 
-        $dsn = "mysql:host=1this->{$this->host};dbname={$this->dbname};charset=utf8mb4";
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
 
         try {
             $this->connection = new PDO($dsn, $this->user, $this->password, [

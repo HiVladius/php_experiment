@@ -1,8 +1,33 @@
 <?php
 // --- LÓGICA (Backend) ---
+session_start();
+
 require_once '../../vendor/autoload.php';
 
 use App\Models\StatusManager;
+use App\Config\Database;
+use Dotenv\Dotenv;
+
+// Cargar variables de entorno
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+$error_db = null;
+try {
+    $dbConfig = new Database(
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
+        $_ENV['DB_NAME']
+    );
+
+    $pdo = $dbConfig->getConnection();
+    $stmt = $pdo->query("SELECT id, nombre, precio, stock, creado_en FROM productos ORDER BY creado_en DESC");
+    $productosDB = $stmt->fetchAll();
+} catch (\Exception $e) {
+    $productosDB = [];
+    $error_db = $e->getMessage();
+}
 
 $userName = "Vladimir";
 $titulo = "Panel de control de " . $userName;
@@ -12,7 +37,9 @@ $statusManager = new StatusManager('online');
 
 // Cargar configuración de productos
 $estadosDisponibles = $statusManager->getAvailableStates();
-$productos = require 'config/products.php';
+
+// Usar productos de la BD en lugar de los de prueba
+$productos = $productosDB ?? [];
 
 // Variable para mostrar mensajes de estado
 $statusQuery = $_GET['status'] ?? null;
