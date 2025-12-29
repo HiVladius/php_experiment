@@ -3,6 +3,23 @@
 require_once '../../vendor/autoload.php';
 
 use App\Models\StatusManager;
+use App\Config\Database;
+
+try {
+    $dbConfig = new Database(
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
+        $_ENV['DB_NAME']
+    );
+
+    $pdo = $dbConfig->getConnection();
+    $stmt = $pdo->query("SELECT nombre, precio, stock FROM productos, ORDER BY creado_en DESC");
+    $productos = $stmt->fetchAll();
+} catch (\Exception $e) {
+    $productos = [];
+    $error_db = $e->getMessage();
+}
 
 $userName = "Vladimir";
 $titulo = "Panel de control de " . $userName;
