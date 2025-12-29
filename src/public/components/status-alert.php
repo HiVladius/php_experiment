@@ -1,10 +1,6 @@
 <?php
-/**
- * Componente StatusAlert - Alertas de operación exitosa o error
- * 
- * Variables requeridas:
- * - $statusQuery: Estado de la query (success, error o null)
- */
+// Tiempo que se muestra la alerta (en segundos)
+
 ?>
 
 <div class="max-w-2xl mx-auto">
@@ -25,3 +21,23 @@
         </div>
     <?php endif; ?>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const alert = document.querySelector('[role="alert"]');
+    if (alert) {
+        // Espera 5 segundos (5000 ms)
+        setTimeout(function() {
+            // Luego desaparece gradualmente
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            
+            // Después de la animación, lo remueve del DOM
+            setTimeout(function() {
+                alert.remove();
+                // Limpiar la URL para evitar que F5 repita la acción
+                window.history.replaceState({}, document.title, 'index.php');
+            }, 500);
+        }, 5000); // 5 segundos
+    }
+});
+</script>
