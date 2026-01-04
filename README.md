@@ -1,4 +1,4 @@
-# Mi Tienda - Sistema de Gestión de Inventario
+ph# Mi Tienda - Sistema de Gestión de Inventario
 
 Un panel de control para gestión de inventario desarrollado con **PHP puro** y **MySQL**, con arquitectura MVC y manejo de variables de entorno.
 
