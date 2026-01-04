@@ -32,8 +32,14 @@ try {
 $userName = "Vladimir";
 $titulo = "Panel de control de " . $userName;
 
-// Inicializar el manejador de estados
-$statusManager = new StatusManager('online');
+// Procesar cambio de estado si se envía desde el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nuevo_estado'])) {
+    $_SESSION['user_status'] = $_POST['nuevo_estado'];
+}
+
+// Inicializar el manejador de estados con el estado guardado en sesión
+$savedStatus = $_SESSION['user_status'] ?? 'online';
+$statusManager = new StatusManager($savedStatus);
 
 // Cargar configuración de productos
 $estadosDisponibles = $statusManager->getAvailableStates();
@@ -43,11 +49,6 @@ $productos = $productosDB ?? [];
 
 // Variable para mostrar mensajes de estado
 $statusQuery = $_GET['status'] ?? null;
-
-// Procesar cambio de estado si se envía desde el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nuevo_estado'])) {
-    $statusManager->setStatus($_POST['nuevo_estado']);
-}
 
 // Obtener el estado actual
 $status = $statusManager->getCurrentStatus();
@@ -69,14 +70,18 @@ $status = $statusManager->getCurrentStatus();
         <?php require 'components/header.php'; ?>
     </div>
 
-    <!-- Inventario de productos -->
-    <?php require 'components/inventory.php'; ?>
+    <!-- Alertas de estado -->
+    <?php require 'components/status-alert.php'; ?>
 
     <!-- Formulario para agregar productos -->
     <?php require 'components/product-form.php'; ?>
 
-    <!-- Alertas de estado -->
-    <?php require 'components/status-alert.php'; ?>
+    <!-- Inventario de productos -->
+    <?php require 'components/inventory.php'; ?>
+
+    
+
+    
 
 </body>
 </html>
